@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		EA1D00122D285E46005E2D4F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EA1D00112D285E46005E2D4F /* SnapKit */; };
+		EAB625AD2D2EC1BD00A46ABB /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EAB625AC2D2EC1BD00A46ABB /* Lottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		EA68AA582CE9DBFD009C1C4A /* taxi-calling-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "taxi-calling-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA1D00122D285E46005E2D4F /* SnapKit in Frameworks */,
+				EAB625AD2D2EC1BD00A46ABB /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = "taxi-calling-app";
 			packageProductDependencies = (
+				EA1D00112D285E46005E2D4F /* SnapKit */,
+				EAB625AC2D2EC1BD00A46ABB /* Lottie */,
 			);
 			productName = "taxi-calling-app";
 			productReference = EA68AA582CE9DBFD009C1C4A /* taxi-calling-app.app */;
@@ -107,6 +116,10 @@
 			);
 			mainGroup = EA68AA4F2CE9DBFD009C1C4A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EA1D00102D285E46005E2D4F /* XCRemoteSwiftPackageReference "SnapKit" */,
+				EAB625AB2D2EC1BD00A46ABB /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EA68AA592CE9DBFD009C1C4A /* Products */;
 			projectDirPath = "";
@@ -145,6 +158,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5S4TMVFBL9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "taxi-calling-app/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -171,6 +185,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5S4TMVFBL9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "taxi-calling-app/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -331,6 +346,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EA1D00102D285E46005E2D4F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		EAB625AB2D2EC1BD00A46ABB /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EA1D00112D285E46005E2D4F /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA1D00102D285E46005E2D4F /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		EAB625AC2D2EC1BD00A46ABB /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EAB625AB2D2EC1BD00A46ABB /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EA68AA502CE9DBFD009C1C4A /* Project object */;
 }

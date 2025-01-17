@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomTextField: UITextField {
+class CustomTextFields: UITextField {
     
     enum CustomTextFieldType {
         case username

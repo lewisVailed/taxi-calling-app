@@ -9,9 +9,11 @@ import UIKit
 
 class LoginController: UIViewController {
     
+    
+    
     // MARK: - UI Components
-    let emailTextField = CustomTextField(fieldType: .email)
-    let passwordTextField = CustomTextField(fieldType: .password)
+    let emailTextField = CustomTextFields(fieldType: .email)
+    let passwordTextField = CustomTextFields(fieldType: .password)
     
     let loginButton = CustomButton(content: .text(title: "Giriş Yap"), fontSize: .medium, hasBackground: true)
     let registerButton = CustomButton(content: .text(title: "Kayıt Ol"), fontSize: .medium, hasBackground: true)
@@ -138,4 +140,8 @@ class LoginController: UIViewController {
             
         ])
     }
+}
+
+#Preview {
+    LoginController()
 }

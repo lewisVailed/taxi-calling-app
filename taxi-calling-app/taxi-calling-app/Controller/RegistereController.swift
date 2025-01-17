@@ -7,12 +7,12 @@
 
 import UIKit
 
-class RegisterController: UIViewController {
+class RegistereController: UIViewController {
 
     // MARK: - UI Components
-    let usernameTextField = CustomTextField(fieldType: .username)
-    let emailTextField = CustomTextField(fieldType: .email)
-    let passwordTextField = CustomTextField(fieldType: .password)
+    let usernameTextField = CustomTextFields(fieldType: .username)
+    let emailTextField = CustomTextFields(fieldType: .email)
+    let passwordTextField = CustomTextFields(fieldType: .password)
     
     let registerButton = CustomButton(content: .text(title: "Kayıt Ol"), fontSize: .medium, hasBackground: true)
     let alreadyRegisterButton = CustomButton(content: .text(title: "Zaten bir üyeliğiniz var mı? Giriş yapın!"), fontSize: .small, hasBackground: false)
