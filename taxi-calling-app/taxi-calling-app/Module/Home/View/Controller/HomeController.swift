@@ -1,5 +1,6 @@
 
 import UIKit
+import SnapKit
 
 class HomeController: UIViewController {
    
@@ -33,15 +34,6 @@ class HomeController: UIViewController {
         return textField
     }()
     
-    private let transportStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 40
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
     private let callTaxiButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = Colors.primary
@@ -50,11 +42,26 @@ class HomeController: UIViewController {
         return button
     }()
     
+    private let priceLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Estimated cost \(HomeViewEntity.init(cost: 20))"
+        label.font = .systemFont(ofSize: 32, weight: .bold)
+        label.textColor = Colors.accent
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let tesla1Button = CustomButton(content: .logo(image: UIImage(named: "tesla-models")!), fontSize: .tesla, hasBackground: false)
+    private let tesla2Button = CustomButton(content: .logo(image: UIImage(named: "tesla-cybertruck")!), fontSize: .tesla, hasBackground: false)
+    private let tesla3Button = CustomButton(content: .logo(image: UIImage(named: "tesla-semitruck")!), fontSize: .tesla, hasBackground: false)
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
+    
+    
     
     // MARK: - UI Setup
     private func setupUI() {
@@ -62,8 +69,14 @@ class HomeController: UIViewController {
         
         setupTitleLabel()
         setupTextFields()
-        setupTransportIcons()
         setupCallTaxiButton()
+        makeOpaqueNavBar()
+        setupPriceLabel()
+        self.navigationItem.title = "Home"
+        
+        
+        
+        
     }
     
     private func setupTitleLabel() {
@@ -90,23 +103,65 @@ class HomeController: UIViewController {
             destinationTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             destinationTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
+        
+        view.addSubview(tesla1Button)
+        view.addSubview(tesla2Button)
+        view.addSubview(tesla3Button)
+        
+        let teslaButtons = [tesla1Button, tesla2Button, tesla3Button]
+                
+                // Buton stillerini for döngüsü ile ayarlayalım
+                for button in teslaButtons {
+                    view.addSubview(button)
+                    button.layer.cornerRadius = 40
+                    button.clipsToBounds = true
+                    button.layer.borderWidth = 2.0
+                    button.layer.borderColor = Colors.primary.cgColor
+                    button.layer.shadowColor = UIColor.black.cgColor
+                    button.layer.shadowOffset = CGSize(width: 0, height: 4)
+                    button.layer.shadowRadius = 5
+                    button.layer.shadowOpacity = 0.2
+                }
+                
+                // Butonların konumlarını for döngüsü ile ayarlayalım
+                let buttonWidth: CGFloat = 80
+                let spacing: CGFloat = 30 // Butonlar arası boşluk
+                let totalWidth = buttonWidth * 3 + spacing * 2 // 3 buton ve 2 boşluk
+                let startX = (view.bounds.width - totalWidth) / 2 // Ekranın ortasından başlaması için
+                
+                for (index, button) in teslaButtons.enumerated() {
+                    let xPosition = startX + CGFloat(index) * (buttonWidth + spacing)
+                    
+                    button.snp.makeConstraints { make in
+                        make.top.equalTo(destinationTextField.snp.bottom).offset(40)
+                        make.width.height.equalTo(buttonWidth)
+                        make.left.equalTo(view.snp.left).offset(xPosition)
+                    }
+                }
     }
     
-    private func setupTransportIcons() {
-        view.addSubview(transportStackView)
+ 
+    
         
-        let icons = ["car.fill", "bus.fill", "tram.fill"]
-        icons.forEach { iconName in
-            let iconView = TransportIconView(iconName: iconName)
-            transportStackView.addArrangedSubview(iconView)
+
+    
+    private func setupPriceLabel() {
+        // Tahmini Fiyat
+        let priceLabel = UILabel()
+        priceLabel.text = "Estimated price: 20$"
+        priceLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        priceLabel.textColor = Colors.accent
+        priceLabel.textAlignment = .center
+        view.addSubview(priceLabel)
+        
+        self.view.addSubview(priceLabel)
+        
+        priceLabel.snp.makeConstraints { make in
+            make.top.equalTo(destinationTextField.snp.bottom).offset(200)
+            make.centerX.equalToSuperview()
         }
-        
-        NSLayoutConstraint.activate([
-            transportStackView.topAnchor.constraint(equalTo: destinationTextField.bottomAnchor, constant: 30),
-            transportStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            transportStackView.heightAnchor.constraint(equalToConstant: 70)
-        ])
     }
+
     
     private func setupCallTaxiButton() {
         view.addSubview(callTaxiButton)
@@ -119,12 +174,13 @@ class HomeController: UIViewController {
         
         callTaxiButton.setAttributedTitle(attributedString, for: .normal)
         
-        NSLayoutConstraint.activate([
-            callTaxiButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
-            callTaxiButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            callTaxiButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            callTaxiButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        callTaxiButton.snp.makeConstraints { make in
+            make.top.equalTo(destinationTextField.snp.bottom).offset(400)
+            make.height.equalTo(50)
+            make.trailing.equalTo(-50)
+            make.leading.equalTo(50)
+        }
+       
     }
 }
 
@@ -141,23 +197,35 @@ class CustomTextField: UITextField {
     }
     
     private func setupTextField() {
+        // Soldaki padding view
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 50))
         leftView = paddingView
         leftViewMode = .always
-        
+
+        // Sağdaki ok işareti için UIImageView
         let arrowImageView = UIImageView(image: UIImage(systemName: "arrow.right"))
         arrowImageView.tintColor = Colors.accent
         arrowImageView.contentMode = .center
-        arrowImageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        
-        rightView = arrowImageView
+        arrowImageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50) // Ok işareti boyutları
+
+        // Ok işareti için kapsayıcı UIView
+        let rightContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        rightContainerView.addSubview(arrowImageView)
+
+        // Ok işaretini sola kaydırmak için merkezini ayarla
+        arrowImageView.center = CGPoint(x: rightContainerView.frame.width - 20, y: rightContainerView.frame.height / 2)
+
+        rightView = rightContainerView
         rightViewMode = .always
-        
+
+        // Gölge efektleri
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowOffset = CGSize(width: 10, height: 2)
         layer.shadowRadius = 5
         layer.shadowOpacity = 0.1
     }
+
+
 }
 
 class TransportIconView: UIView {
